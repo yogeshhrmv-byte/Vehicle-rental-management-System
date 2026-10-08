@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>RentalDrive — Vehicle Rental App</title>
+
+    <!-- CSS File -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-mark"></div>
+
+            <div>
+                <h1>Rental<span>Drive</span></h1>
+                <small>DRIVE YOUR FREEDOM</small>
+            </div>
+        </div>
+
+        <div class="menu-title">MAIN MENU</div>
+
+        <div class="menu">
+
+            <button class="active" onclick="showHome(this)">
+                ⌂ &nbsp; Home
+            </button>
+
+            <button onclick="showHome(this)">
+                🚘 &nbsp; Browse Vehicles
+            </button>
+
+            <button onclick="showBookings(this)">
+                ▣ &nbsp; My Bookings
+            </button>
+
+            <button onclick="showProfile(this)">
+                ▤ &nbsp; My Documents
+            </button>
+
+            <button onclick="showProfile(this)">
+                ● &nbsp; Profile
+            </button>
+
+            <button onclick="showRules(this)">
+                ⚙ &nbsp; Rental Rules
+            </button>
+
+        </div>
+
+        <div class="sidebar-note">
+            Better Cars<br>
+            Bigger Journeys<br>
+            Only with<br>
+            <b>RentalDrive</b>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <section class="main">
+
+        <!-- TOP BAR -->
+        <header class="topbar">
+
+            <input
+                class="search"
+                id="search"
+                oninput="renderVehicles()"
+                placeholder="Search vehicles, brands, or models..."
+            >
+
+            <div>🔔</div>
+
+            <div class="user">
+
+                <div class="avatar">Y</div>
+
+                <div>
+                    Hello, Yogesh
+                    <small>Renter</small>
+                </div>
+
+                ⌄
+
+            </div>
+
+        </header>
+
+
+        <div class="content">
+
+            <!-- HOME PAGE -->
+            <section id="home-page">
+
+                <!-- HERO -->
+                <div class="hero">
+
+                    <div class="hero-copy">
+
+                        <h2>
+                            Your Ride.<br>
+                            <span>Your Rules.</span>
+                        </h2>
+
+                        <p>
+                            Choose trusted cars from leading brands.
+                            Transparent pricing, verified vehicles,
+                            flexible booking and clear rental rules.
+                        </p>
+
+                        <div class="hero-chips">
+
+                            <span class="chip">
+                                ✓ Verified Vehicles
+                            </span>
+
+                            <span class="chip">
+                                ✓ Secure Booking
+                            </span>
+
+                            <span class="chip">
+                                ✓ 24/7 Support
+                            </span>
+
+                            <span class="chip">
+                                ✓ Transparent Fines
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="hero-cars">
+                        🚗 &nbsp; 🚙
+                    </div>
+
+                </div>
+
+
+                <!-- STATISTICS -->
+                <div class="stats">
+
+                    <div class="stat">
+                        <small>AVAILABLE VEHICLES</small>
+                        <b id="vehicleCount">12+</b>
+                    </div>
+
+                    <div class="stat">
+                        <small>BRANDS</small>
+                        <b>6</b>
+                    </div>
+
+                    <div class="stat">
+                        <small>STARTING FROM</small>
+                        <b>₹1,200/day</b>
+                    </div>
+
+                    <div class="stat">
+                        <small>VERIFIED RENTERS</small>
+                        <b>96%</b>
+                    </div>
+
+                </div>
+
+
+                <!-- VEHICLE SECTION -->
+                <div class="section-head">
+
+                    <div>
+                        <h2>Available Vehicles</h2>
+
+                        <p>
+                            Choose from Maruti Suzuki, Hyundai, Tata,
+                            Honda, Renault and Toyota.
+                        </p>
+                    </div>
+
+
+                    <div class="filters">
+
+                        <button
+                            class="filter active"
+                            onclick="setBrand('All',this)">
+                            All
+                        </button>
+
+                        <button
+                            class="filter"
+                            onclick="setBrand('Maruti Suzuki',this)">
+                            Maruti
+                        </button>
+
+                        <button
+                            class="filter"
+                            onclick="setBrand('Hyundai',this)">
+                            Hyundai
+                        </button>
+
+                        <button
+                            class="filter"
+                            onclick="setBrand('Tata',this)">
+                            Tata
+                        </button>
+
+                        <button
+                            class="filter"
+                            onclick="setBrand('Honda',this)">
+                            Honda
+                        </button>
+
+                        <button
+                            class="filter"
+                            onclick="setBrand('Renault',this)">
+                            Renault
+                        </button>
+
+                        <button
+                            class="filter"
+                            onclick="setBrand('Toyota',this)">
+                            Toyota
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="layout">
+
+                    <!-- VEHICLES -->
+                    <div
+                        class="vehicles"
+                        id="vehicles">
+                    </div>
+
+
+                    <!-- BOOKING SIDEBAR -->
+                    <aside>
+
+                        <div class="side-card">
+
+                            <h3>📅 Book Your Vehicle</h3>
+
+                            <div class="field">
+
+                                <label>
+                                    Select Vehicle
+                                </label>
+
+                                <select
+                                    id="vehicleSelect"
+                                    onchange="syncVehicle()">
+                                </select>
+
+                            </div>
+
+
+                            <div class="field">
+
+                                <label>
+                                    Start Date
+                                </label>
+
+                                <input
+                                    type="date"
+                                    id="startDate"
+                                    onchange="calculate()">
+
+                            </div>
+
+
+                            <div class="field">
+
+                                <label>
+                                    End Date
+                                </label>
+
+                                <input
+                                    type="date"
+                                    id="endDate"
+                                    onchange="calculate()">
+
+                            </div>
+
+
+                            <div class="field">
+
+                                <label>
+                                    Pickup Location
+                                </label>
+
+                                <select>
+
+                                    <option>Bengaluru</option>
+                                    <option>Mysuru</option>
+                                    <option>Hyderabad</option>
+                                    <option>Chennai</option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="field">
+
+                                <label>
+                                    Return Location
+                                </label>
+
+                                <select>
+
+                                    <option>Bengaluru</option>
+                                    <option>Mysuru</option>
+                                    <option>Hyderabad</option>
+                                    <option>Chennai</option>
+
+                                </select>
+
+                            </div>
+
+
+                            <!-- TOTAL -->
+                            <div class="total">
+
+                                <div class="total-row">
+                                    <span>Rental duration</span>
+                                    <strong id="duration">
+                                        1 day
+                                    </strong>
+                                </div>
+
+                                <div class="total-row">
+                                    <span>Vehicle cost</span>
+                                    <strong id="vehicleCost">
+                                        ₹1,800
+                                    </strong>
+                                </div>
+
+                                <div class="total-row">
+                                    <span>Security deposit</span>
+                                    <strong id="deposit">
+                                        ₹10,000
+                                    </strong>
+                                </div>
+
+                                <div class="total-row">
+                                    <span>Estimated total</span>
+
+                                    <strong
+                                        class="big"
+                                        id="grandTotal">
+                                        ₹1,800
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <button
+                                class="primary"
+                                onclick="bookVehicle()">
+
+                                Proceed to Booking →
+
+                            </button>
+
+                        </div>
+
+
+                        <!-- RULES -->
+                        <div class="side-card rules">
+
+                            <h3>
+                                ⚠ Rental Rules & Fines
+                            </h3>
+
+
+                            <div class="rule">
+
+                                <div class="rule-icon">
+                                    🏎️
+                                </div>
+
+                                <div>
+
+                                    <b>
+                                        Overspeeding Fine — ₹1,000
+                                    </b>
+
+                                    <span>
+                                        If the vehicle crosses the
+                                        permitted speed limit,
+                                        ₹1,000 is added.
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="rule">
+
+                                <div class="rule-icon">
+                                    ⏱️
+                                </div>
+
+                                <div>
+
+                                    <b>
+                                        Overdue Return — ₹18/km
+                                    </b>
+
+                                    <span>
+                                        If returned late,
+                                        ₹18 per extra kilometre
+                                        is charged.
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="rule">
+
+                                <div class="rule-icon">
+                                    ⛽
+                                </div>
+
+                                <div>
+
+                                    <b>
+                                        Fuel Policy
+                                    </b>
+
+                                    <span>
+                                        Return with the agreed
+                                        fuel level.
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="rule">
+
+                                <div class="rule-icon">
+                                    🪪
+                                </div>
+
+                                <div>
+
+                                    <b>
+                                        Documents Required
+                                    </b>
+
+                                    <span>
+                                        Valid driving license
+                                        and identity proof.
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- BRANDS -->
+                        <div class="side-card">
+
+                            <h3>
+                                Popular Brands
+                            </h3>
+
+                            <div class="brand-strip">
+
+                                <span class="brand-pill">
+                                    MARUTI SUZUKI
+                                </span>
+
+                                <span class="brand-pill">
+                                    HYUNDAI
+                                </span>
+
+                                <span class="brand-pill">
+                                    TATA
+                                </span>
+
+                                <span class="brand-pill">
+                                    HONDA
+                                </span>
+
+                                <span class="brand-pill">
+                                    RENAULT
+                                </span>
+
+                                <span class="brand-pill">
+                                    TOYOTA
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </aside>
+
+                </div>
+
+            </section>
+
+
+            <!-- OTHER PAGES -->
+            <section
+                id="bookings-page"
+                class="booking-page">
+            </section>
+
+            <section
+                id="return-page"
+                class="return-page">
+            </section>
+
+            <section
+                id="profile-page"
+                class="booking-page">
+            </section>
+
+        </div>
+
+
+        <footer>
+
+            Vehicles &nbsp; | &nbsp;
+            Customers &nbsp; | &nbsp;
+            Reservations &nbsp; | &nbsp;
+            Returns &nbsp; | &nbsp;
+            Support: support@rentaldrive.com
+
+        </footer>
+
+    </section>
+
+</div>
+
+
+<!-- JavaScript File -->
+<script src="script.js"></script>
+
+</body>
+</html>
